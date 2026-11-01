@@ -1,23 +1,22 @@
-// 1. Importa ChangeDetectorRef desde @angular/core
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../services/user';
 import { LoginModel, AuthResponse } from '../../models/login.model';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
 export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string = '';
+  successToken: string = '';
 
-  // 2. Inyecta ChangeDetectorRef en el constructor (private cdr)
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -33,13 +32,15 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.invalid) return;
     this.errorMessage = '';
+    this.successToken = '';
 
     const credentials: LoginModel = this.loginForm.value;
 
     this.userService.login(credentials).subscribe({
       next: (response: AuthResponse) => {
         sessionStorage.setItem('jwt_token', response.token);
-        this.router.navigate(['/dashboard']);
+        this.successToken = response.token;
+        this.cdr.detectChanges();
       },
       error: (err: any) => {
         if (err.status === 401) {
@@ -47,8 +48,6 @@ export class LoginComponent {
         } else {
           this.errorMessage = 'Ocurrió un error en el servidor.';
         }
-
-        // 3. Obliga a Angular a redibujar el HTML instantáneamente
         this.cdr.detectChanges();
       }
     });

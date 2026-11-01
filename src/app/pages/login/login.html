@@ -1,4 +1,5 @@
 <div class="login-container">
+  <a routerLink="/dashboard">← Volver al Dashboard</a>
   <h2>Iniciar Sesión</h2>
 
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -18,5 +19,11 @@
   <!-- Mensaje de Error -->
   <div *ngIf="errorMessage" style="color: red; margin-top: 10px;">
     {{ errorMessage }}
+  </div>
+
+  <!-- Token JWT -->
+  <div *ngIf="successToken" style="color: green; margin-top: 10px; word-break: break-all;">
+    <strong>¡Login Exitoso! Token JWT:</strong><br>
+    {{ successToken }}
   </div>
 </div>

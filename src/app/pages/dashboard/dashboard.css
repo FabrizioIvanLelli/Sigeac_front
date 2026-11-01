@@ -21,3 +21,18 @@
   .card.status {
     border-left-color: #198754;
   }
+
+.nav-links a {
+  padding: 10px 16px;
+  background-color: #2563eb;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background-color 0.2s;
+}
+
+  .nav-links a:hover {
+    background-color: #1d4ed8;
+  }

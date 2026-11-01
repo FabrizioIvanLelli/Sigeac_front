@@ -1,0 +1,27 @@
+<div class="hobbies-container">
+  <a routerLink="/dashboard">← Volver al Dashboard</a>
+  <h2>Pasatiempos Dinámicos (Ejercicio 2)</h2>
+
+  <form [formGroup]="hobbiesForm" (ngSubmit)="onSubmit()">
+    <div formArrayName="hobbies">
+      <h3>Lista de Pasatiempos</h3>
+
+      @for (hobby of hobbies.controls; track $index; let i = $index) {
+      <div class="hobby-item">
+        <label for="hobby-{{i}}">Pasatiempo {{ i + 1 }}:</label>
+        <input id="hobby-{{i}}" type="text" formControlName="{{i}}" placeholder="Ej: Programar, Leer...">
+      </div>
+      }
+    </div>
+
+    <div class="actions" style="margin-top: 16px; display: flex; gap: 10px;">
+      <button type="button" (click)="addHobby()">
+        + Agregar Pasatiempo
+      </button>
+
+      <button type="submit">
+        Guardar en Consola
+      </button>
+    </div>
+  </form>
+</div>

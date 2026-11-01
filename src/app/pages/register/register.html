@@ -1,0 +1,41 @@
+<div class="register-container">
+  <a routerLink="/dashboard">← Volver al Dashboard</a>
+  <h2>Formulario de Registro (Ejercicio 1)</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="name">Nombre:</label>
+      <input id="name" type="text" formControlName="name">
+    </div>
+
+    <div>
+      <label for="email">Email:</label>
+      <input id="email" type="email" formControlName="email">
+    </div>
+
+    <!-- Grupo anidado address -->
+    <div formGroupName="address">
+      <h3>Dirección</h3>
+
+      <div>
+        <label for="street">Calle:</label>
+        <input id="street" type="text" formControlName="street">
+      </div>
+
+      <div>
+        <label for="city">Ciudad:</label>
+        <input id="city" type="text" formControlName="city">
+      </div>
+    </div>
+
+    <div style="margin-top: 16px; display: flex; gap: 10px;">
+      <button type="button" (click)="loadTestAddress()">
+        Cargar Dirección de Prueba
+      </button>
+
+      <button type="submit" [disabled]="registerForm.invalid">
+        Registrar
+      </button>
+    </div>
+  </form>
+</div>
